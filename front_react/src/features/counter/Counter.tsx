@@ -1,18 +1,23 @@
 import type { RootState } from '@/app/store';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from './counterSlice';
 import './Counter.css';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { incrementByAmount } from './counterSlice';
 
 function Counter() {
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch = useDispatch();
+  const count = useAppSelector((state: RootState) => state.counter.value);
+  const dispatch = useAppDispatch();
 
   return (
     <div className="App">
       <div className="card">
-        <button onClick={() => dispatch(increment())}>Increment</button>
+        <button onClick={() => dispatch({ type: 'counter/increment' })}>
+          Increment
+        </button>
         <span>{count}</span>
-        <button onClick={() => dispatch(decrement())}>Decrement</button>
+        <button onClick={() => dispatch({ type: 'counter/decrement' })}>
+          Decrement
+        </button>
+        <button onClick={() => dispatch(incrementByAmount(3))}>+2</button>
       </div>
     </div>
   );
